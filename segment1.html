@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Unit 2 Segment 1</title>
+    <!--Import Google Icon Font-->
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel='stylesheet' type='text/css' media='screen' href='segment1.css'>
+    <link rel="icon" href="fblogo.png">
+</head>
+
+<body>
+    <div class='containter'>
+        <center>
+            <h2>Input Username Below</h2>
+            <input type="text" id='username' placeholder="Input Username"
+                style='color:#f8f8f2;text-align:center;font-size:25px;width:50%;'>
+            <a class="waves-effect waves-light btn" onclick='writeUserData()' style='background-color:#ff5555;'>Add User</a>
+        </center>
+    </div>
+
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-database.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        var firebaseConfig = {
+            apiKey: "AIzaSyAr0J-PXfZwxRbio0dWtxt64qd9O4sB2kY",
+            authDomain: "year10designfirebasedemozg.firebaseapp.com",
+            databaseURL: "https://year10designfirebasedemozg.firebaseio.com",
+            projectId: "year10designfirebasedemozg",
+            storageBucket: "year10designfirebasedemozg.appspot.com",
+            messagingSenderId: "445964366173",
+            appId: "1:445964366173:web:c307374f6ab987c38c38b4",
+            measurementId: "G-PWQ5DD6X6Q"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+
+        var database = firebase.database();
+
+        var updateDisplay = database.ref('users/');
+        updateDisplay.on('value', (snapshot) => {
+            const data = snapshot.val();
+            const dataStr = JSON.stringify(data);
+            console.log('Data:' + data);
+            console.log('***********')
+            console.log('Data String: ' + dataStr)
+        });
+
+        function addUser() {
+            var rootRef = firebase.database().ref();
+            let newid = document.getElementById('username').value;
+            console.log(newid);
+            var idRef = rootRef.child('users/' + newid);
+            var newidRef = idRef.push();
+        }
+
+        function writeUserData(userId) {
+            userId = document.getElementById('username').value;
+            firebase.database().ref('users/' + userId).set({username:userId});
+        }
+
+    </script>
+    <script type='text/javascript' src='segment1.js'></script>
+</body>
+
+</html>
