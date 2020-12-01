@@ -75,7 +75,7 @@
 
         function writeUserData(userId) {
             userId = document.getElementById('username').value;
-            firebase.database().ref('users/' + userId).set({username:userId});
+            firebase.database().ref('users/' + userId).set({name:userId});
         }
 
     </script>
